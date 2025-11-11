@@ -70,8 +70,10 @@
             archive \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="iPhone Distribution" \
+            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
-            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
+            OTHER_CODE_SIGN_FLAGS="--deep"
+
 
       # 7. .ipa にエクスポート
       - name: Export IPA

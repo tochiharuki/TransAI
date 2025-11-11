@@ -60,18 +60,17 @@
           set -e
           xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
           xcodebuild \
-            -project TransAI.xcodeproj \
-            -scheme TransAI \
-            -sdk iphoneos \
-            -destination 'generic/platform=iOS' \
-            -configuration Release \
-            -archivePath $PWD/build/TransAI.xcarchive \
-            archive \
-            CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
-            OTHER_CODE_SIGN_FLAGS="--keychain ~/Library/Keychains/build.keychain" \
-            PROVISIONING_PROFILE_SPECIFIER="" \
-            CODE_SIGN_IDENTITY="iPhone Distribution"
+          -project TransAI.xcodeproj \
+          -scheme TransAI \
+          -sdk iphoneos \
+          -destination 'generic/platform=iOS' \
+          -configuration Release \
+          -archivePath $PWD/build/TransAI.xcarchive \
+          archive \
+          CODE_SIGN_STYLE=Automatic \
+          DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
+          PROVISIONING_PROFILE_SPECIFIER="" \
+          CODE_SIGN_IDENTITY=""
             
      # 7. .ipa にエクスポート
       - name: Export IPA

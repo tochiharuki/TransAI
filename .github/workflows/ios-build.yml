@@ -27,13 +27,7 @@
             pod install --project-directory=TransAI
           fi
 
-      # 3. Provisioning Profile を復元
-      - name: Decode and install provisioning profile
-        run: |
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/TransAI_AdHoc.mobileprovision
-        env:
-          MOBILEPROVISION: ${{ secrets.PROVISIONING_PROFILE }}
+      
 
       # 4. 証明書を Keychain にインポート
       - name: Import certificate to keychain
@@ -58,6 +52,7 @@
       - name: Build archive (iOS)
         run: |
           set -e
+          xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
           xcodebuild \
               -project TransAI.xcodeproj \
               -scheme TransAI \
@@ -66,9 +61,7 @@
               -configuration Release \
               -archivePath $PWD/build/TransAI.xcarchive \
               archive \
-              CODE_SIGN_STYLE=Manual \
-              CODE_SIGN_IDENTITY="iPhone Distribution" \
-              PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
+              CODE_SIGN_STYLE=Automatic \
               DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
             
      # 7. .ipa にエクスポート

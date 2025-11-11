@@ -5,12 +5,7 @@
     <key>method</key>
     <string>ad-hoc</string>
     <key>signingStyle</key>
-    <string>manual</string>
-    <key>provisioningProfiles</key>
-    <dict>
-        <key>com.haruki.TransAI</key>
-        <string>TransAI_AdHoc_Profile</string>
-    </dict>
+    <string>automatic</string>
     <key>compileBitcode</key>
     <false/>
     <key>destination</key>
@@ -19,4 +14,3 @@
     <true/>
 </dict>
 </plist>
-

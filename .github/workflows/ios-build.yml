@@ -48,34 +48,34 @@
       - name: Clean DerivedData
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
-    # 6. アーカイブ作成（Ad-Hoc）
-    - name: Build archive (iOS)
-      run: |
-        set -e
-        xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
-        xcodebuild \
-          -project TransAI.xcodeproj \
-          -scheme TransAI \
-          -sdk iphoneos \
-          -destination 'generic/platform=iOS' \
-          -configuration Release \
-          -archivePath $PWD/build/TransAI.xcarchive \
-          archive \
-          CODE_SIGN_STYLE=Automatic \
-          DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
-          -allowProvisioningUpdates
-    
-    # 7. .ipa にエクスポート
-    - name: Export IPA
-      run: |
-        set -e
-        xcodebuild -exportArchive \
-          -archivePath $PWD/build/TransAI.xcarchive \
-          -exportOptionsPlist ExportOptions.plist \
-          -exportPath $PWD/build \
-          -allowProvisioningUpdates
-        echo "Contents of build directory:"
-        ls -al build || true
+      # 6. アーカイブ作成（Ad-Hoc）
+      - name: Build archive (iOS)
+        run: |
+          set -e
+          xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
+          xcodebuild \
+              -project TransAI.xcodeproj \
+              -scheme TransAI \
+              -sdk iphoneos \
+              -destination 'generic/platform=iOS' \
+              -configuration Release \
+              -archivePath $PWD/build/TransAI.xcarchive \
+              archive \
+              CODE_SIGN_STYLE=Automatic \
+              DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
+              -allowProvisioningUpdates
+            
+     # 7. .ipa にエクスポート
+      - name: Export IPA
+        run: |
+          set -e
+          xcodebuild -exportArchive \
+            -archivePath $PWD/build/TransAI.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath $PWD/build
+          echo "Contents of build directory:"
+            -allowProvisioningUpdates
+          ls -al build || true
 
       # 8. .ipa を Artifact としてアップロード
       - name: Upload IPA artifact

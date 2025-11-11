@@ -69,10 +69,8 @@
             -archivePath $PWD/build/TransAI.xcarchive \
             archive \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="iPhone Distribution" \
             DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
-            PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
-            OTHER_CODE_SIGN_FLAGS="--deep"
+            CODE_SIGNING_ALLOWED=YES
 
 
       # 7. .ipa にエクスポート

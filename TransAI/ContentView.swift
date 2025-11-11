@@ -58,11 +58,20 @@ struct ContentView: View {
 }
 
 extension String {
-    func toMLMultiArray() throws -> MLMultiArray {
-        let array = try MLMultiArray(shape: [1, NSNumber(value: self.count)], dataType: .double)
-        for (i, char) in self.enumerated() {
-            array[i] = NSNumber(value: Double(char.asciiValue ?? 0))
+    func toMLMultiArray(expectedLength: Int = 4) throws -> MLMultiArray {
+        // モデル仕様に合わせて固定長で配列を作る
+        let array = try MLMultiArray(shape: [1, NSNumber(value: expectedLength)], dataType: .double)
+
+        // 文字列 → ASCII に変換、足りない部分は 0 で埋める
+        for i in 0..<expectedLength {
+            if i < self.count {
+                let char = self[self.index(self.startIndex, offsetBy: i)]
+                array[i] = NSNumber(value: Double(char.asciiValue ?? 0))
+            } else {
+                array[i] = 0
+            }
         }
+
         return array
     }
 }

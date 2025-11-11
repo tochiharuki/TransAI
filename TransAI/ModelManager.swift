@@ -1,13 +1,13 @@
 import Foundation
 import CoreML
+import ZIPFoundation
 
 class ModelManager {
     static let shared = ModelManager()
-    var model: MLModel?  // 推論用に外からも参照できるように var に変更
+    var model: MLModel?
 
     private init() {}
 
-    // Dropbox からダウンロードしてコンパイルして読み込む
     func downloadAndLoadModel(from urlString: String, completion: @escaping (Bool) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(false)
@@ -15,66 +15,57 @@ class ModelManager {
         }
 
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let destination = documents.appendingPathComponent("open_calm_1b_8bit.mlpackage")
+        let zipURL = documents.appendingPathComponent("open_calm_1b_8bit.mlmodelc.zip")
+        let unzipDir = documents.appendingPathComponent("open_calm_1b_8bit.mlmodelc")
 
-        if FileManager.default.fileExists(atPath: destination.path) {
-            // ここで loadModelAsync を呼ぶ
-            loadModelAsync(from: destination) { loadedModel in
-                self.model = loadedModel
-                completion(loadedModel != nil)
-            }
-            return
-        }
+        // 既存ファイル削除
+        try? FileManager.default.removeItem(at: zipURL)
+        try? FileManager.default.removeItem(at: unzipDir)
 
+        // ダウンロード開始
         URLSession.shared.downloadTask(with: url) { tempURL, _, error in
             guard let tempURL = tempURL, error == nil else {
+                print("❌ ダウンロード失敗:", error?.localizedDescription ?? "不明なエラー")
                 completion(false)
                 return
             }
 
             do {
-                if FileManager.default.fileExists(atPath: destination.path) {
-                    try FileManager.default.removeItem(at: destination)
-                }
-                try FileManager.default.moveItem(at: tempURL, to: destination)
+                try FileManager.default.moveItem(at: tempURL, to: zipURL)
 
-                self.loadModelAsync(from: destination) { loadedModel in
+                // ZIP 解凍
+                try FileManager.default.unzipItem(at: zipURL, to: documents)
+
+                // モデルロード
+                self.loadModelAsync(from: unzipDir) { loadedModel in
                     self.model = loadedModel
                     completion(loadedModel != nil)
                 }
 
             } catch {
-                print("❌ ファイル移動失敗:", error)
+                print("❌ 展開または読み込み失敗:", error)
                 completion(false)
             }
         }.resume()
     }
 
-    // 非同期でコンパイル・ロード
     func loadModelAsync(from packageURL: URL, completion: @escaping (MLModel?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                let compiledURL = try MLModel.compileModel(at: packageURL)
-                let loadedModel = try MLModel(contentsOf: compiledURL)
-                DispatchQueue.main.async {
-                    completion(loadedModel)
-                }
+                let model = try MLModel(contentsOf: packageURL)
+                DispatchQueue.main.async { completion(model) }
             } catch {
                 print("❌ モデル読み込み失敗:", error)
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
+                DispatchQueue.main.async { completion(nil) }
             }
         }
     }
 
-    // MLMultiArray 入力で推論
     func predict(inputArray: MLMultiArray) -> MLMultiArray? {
         guard let model = model else {
             print("⚠️ モデル未ロード")
             return nil
         }
-
         do {
             let input = try MLDictionaryFeatureProvider(dictionary: ["input_ids": inputArray])
             let output = try model.prediction(from: input)

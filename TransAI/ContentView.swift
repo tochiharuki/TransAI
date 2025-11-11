@@ -12,7 +12,7 @@ struct ContentView: View {
                 guard !isLoading else { return }
                 isLoading = true
                 ModelManager.shared.downloadAndLoadModel(
-                    from: "https://www.dropbox.com/scl/fo/9wwsioswogr60ssmlv6r2/AFsG0CwiMM3cYiY8ISsstoM?dl=1"
+                    from: "https://www.dropbox.com/scl/fi/2lszs52ce5mzjrm1t94t6/open_calm_1b_8bit.mlmodelc.zip?rlkey=zo4rnuywouw1p814kulozz439&st=p3qji3eo&dl=1"
                 ) { success in
                     DispatchQueue.main.async {
                         isModelLoaded = success

@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8878CADD2EC0DA7600FACE83 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 8878CADC2EC0DA7600FACE83 /* ZIPFoundation */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		88F0A7E32EC0CDE000CE06FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8878CADD2EC0DA7600FACE83 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +77,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8878CADB2EC0DA7600FACE83 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		88F0A7C82EC0CDDF00CE06FC = {
 			isa = PBXGroup;
 			children = (
 				88F0A7D32EC0CDDF00CE06FC /* TransAI */,
 				88F0A7E52EC0CDE000CE06FC /* TransAITests */,
 				88F0A7EF2EC0CDE000CE06FC /* TransAIUITests */,
+				8878CADB2EC0DA7600FACE83 /* Frameworks */,
 				88F0A7D22EC0CDDF00CE06FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +125,7 @@
 			);
 			name = TransAI;
 			packageProductDependencies = (
+				8878CADC2EC0DA7600FACE83 /* ZIPFoundation */,
 			);
 			productName = TransAI;
 			productReference = 88F0A7D12EC0CDDF00CE06FC /* TransAI.app */;
@@ -195,6 +209,9 @@
 			);
 			mainGroup = 88F0A7C82EC0CDDF00CE06FC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8878CADA2EC0D85700FACE83 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 88F0A7D22EC0CDDF00CE06FC /* Products */;
 			projectDirPath = "";
@@ -396,6 +413,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TransAI/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -435,6 +453,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TransAI/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -591,6 +610,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8878CADA2EC0D85700FACE83 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.20;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8878CADC2EC0DA7600FACE83 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8878CADA2EC0D85700FACE83 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 88F0A7C92EC0CDDF00CE06FC /* Project object */;
 }

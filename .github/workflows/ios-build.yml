@@ -71,7 +71,7 @@
               -archivePath $PWD/build/TransAI.xcarchive \
               archive \
               CODE_SIGN_STYLE=Automatic \
-              DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
+              DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
               -allowProvisioningUpdates
             
      # 7. .ipa にエクスポート
@@ -82,7 +82,7 @@
             -archivePath $PWD/build/TransAI.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
             -exportPath $PWD/build
-          echo "Contents of build directory:"
+          echo "Contents of build directory:" \
             -allowProvisioningUpdates
           ls -al build || true
 

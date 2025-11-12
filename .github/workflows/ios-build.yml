@@ -26,6 +26,15 @@
           if [ -f "TransAI/Podfile" ]; then
             pod install --project-directory=TransAI
           fi
+          
+      # 3. Provisioning Profile を復元
+      # - name: Decode and install provisioning profile
+      #   run: |
+      #     mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+      #     echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/ScanApp_AdHoc.mobileprovision
+      #   env:
+      #     MOBILEPROVISION: ${{ secrets.PROVISIONING_PROFILE }}
+
 
       
 

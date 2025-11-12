@@ -31,7 +31,7 @@
       - name: Decode and install provisioning profile
         run: |
            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-           echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/ScanApp_AdHoc.mobileprovision
+           echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/TransAI_AdHoc.mobileprovision
         env:
            MOBILEPROVISION: ${{ secrets.PROVISIONING_PROFILE }}
 

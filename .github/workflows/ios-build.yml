@@ -28,12 +28,12 @@
           fi
           
       # 3. Provisioning Profile を復元
-        - name: Decode and install provisioning profile
-          env:
+      - name: Decode and install provisioning profile
+        env:
             MOBILEPROVISION: ${{ secrets.PROVISIONING_PROFILE }}
-          run: |
-            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-            echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/TransAI_AdHoc.mobileprovision
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/TransAI_AdHoc.mobileprovision
 
 
       
@@ -82,7 +82,7 @@
             -archivePath $PWD/build/TransAI.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
             -exportPath $PWD/build
-          echo "Contents of build directory:" \
+          echo "Contents of build directory:" 
             -allowProvisioningUpdates
           ls -al build || true
 

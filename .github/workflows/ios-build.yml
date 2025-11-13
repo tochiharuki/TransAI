@@ -75,7 +75,9 @@
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
             DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
             PRODUCT_BUNDLE_IDENTIFIER="com.haruki.TransAI" \
-            OTHER_LDFLAGS="-framework ZipFoundation"
+            CODE_SIGNING_ALLOWED=YES \
+            CODE_SIGNING_REQUIRED=YES \
+            OTHER_SWIFT_FLAGS='-Xswiftc -no-provisioning-profile'
   
       # 7. .ipa にエクスポート
       - name: Export IPA

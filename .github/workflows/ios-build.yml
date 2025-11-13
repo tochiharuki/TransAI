@@ -33,7 +33,7 @@
             MOBILEPROVISION: ${{ secrets.PROVISIONING_PROFILE }}
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/TransAI_AdHoc.mobileprovision
+          echo "$MOBILEPROVISION" | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/TransAI_AdHoc_Profile.mobileprovision
 
 
       
@@ -58,21 +58,25 @@
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
       # 6. アーカイブ作成（Ad-Hoc）
-      - name: Build archive (iOS)
-        run: |
-          set -e
-          xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
-          xcodebuild \
-              -project TransAI.xcodeproj \
-              -scheme TransAI \
-              -sdk iphoneos \
-              -destination 'generic/platform=iOS' \
-              -configuration Release \
-              -archivePath $PWD/build/TransAI.xcarchive \
-              archive \
-              CODE_SIGN_STYLE=Automatic \
-              DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
-              -allowProvisioningUpdates
+    - name: Build archive (Manual Signing)
+      run: |
+        set -e
+        xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
+        xcodebuild \
+          -project TransAI.xcodeproj \
+          -scheme TransAI \
+          -sdk iphoneos \
+          -destination 'generic/platform=iOS' \
+          -configuration Release \
+          -archivePath $PWD/build/TransAI.xcarchive \
+          archive \
+          CODE_SIGN_STYLE=Manual \
+          CODE_SIGN_IDENTITY="Apple Distribution" \
+          PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
+          DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
+          PRODUCT_BUNDLE_IDENTIFIER="com.haruki.TransAI"
+
+
             
      # 7. .ipa にエクスポート
       - name: Export IPA

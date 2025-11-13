@@ -1,6 +1,5 @@
 import Foundation
 import CoreML
-import ZIPFoundation
 
 class ModelManager {
     static let shared = ModelManager()
@@ -18,11 +17,9 @@ class ModelManager {
         let zipURL = documents.appendingPathComponent("open_calm_1b_8bit.mlmodelc.zip")
         let unzipDir = documents.appendingPathComponent("open_calm_1b_8bit.mlmodelc")
 
-        // 既存ファイル削除
         try? FileManager.default.removeItem(at: zipURL)
         try? FileManager.default.removeItem(at: unzipDir)
 
-        // ダウンロード開始
         URLSession.shared.downloadTask(with: url) { tempURL, _, error in
             guard let tempURL = tempURL, error == nil else {
                 print("❌ ダウンロード失敗:", error?.localizedDescription ?? "不明なエラー")
@@ -32,16 +29,11 @@ class ModelManager {
 
             do {
                 try FileManager.default.moveItem(at: tempURL, to: zipURL)
-
-                // ✅ ZIP解凍 — throwing initializer を使用
                 try self.unzipFile(at: zipURL, to: documents)
-
-                // モデルロード
                 self.loadModelAsync(from: unzipDir) { loadedModel in
                     self.model = loadedModel
                     completion(loadedModel != nil)
                 }
-
             } catch {
                 print("❌ 展開または読み込み失敗:", error)
                 completion(false)
@@ -49,14 +41,10 @@ class ModelManager {
         }.resume()
     }
 
-    // MARK: - ZIP解凍処理（deprecated 警告なし）
     func unzipFile(at sourceURL: URL, to destinationURL: URL) throws {
-        // throwing initializer を使う
         let archive = try Archive(url: sourceURL, accessMode: .read)
-
         for entry in archive {
             let destinationPath = destinationURL.appendingPathComponent(entry.path)
-            // extract の戻り値は不要なので _ = で明示
             _ = try archive.extract(entry, to: destinationPath)
         }
     }

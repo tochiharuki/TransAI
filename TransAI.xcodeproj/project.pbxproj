@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8878CAF22EC6109E00FACE83 /* ZIPFoundation in Resources */ = {isa = PBXBuildFile; fileRef = 8878CAF12EC6109E00FACE83 /* ZIPFoundation */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		88F0A7E32EC0CDE000CE06FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8878CAF12EC6109E00FACE83 /* ZIPFoundation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ZIPFoundation; sourceTree = "<group>"; };
 		88F0A7D12EC0CDDF00CE06FC /* TransAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88F0A7E22EC0CDE000CE06FC /* TransAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		88F0A7EC2EC0CDE000CE06FC /* TransAIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransAIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		88F0A7C82EC0CDDF00CE06FC = {
 			isa = PBXGroup;
 			children = (
+				8878CAF12EC6109E00FACE83 /* ZIPFoundation */,
 				88F0A7D32EC0CDDF00CE06FC /* TransAI */,
 				88F0A7E52EC0CDE000CE06FC /* TransAITests */,
 				88F0A7EF2EC0CDE000CE06FC /* TransAIUITests */,
@@ -214,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8878CAF22EC6109E00FACE83 /* ZIPFoundation in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

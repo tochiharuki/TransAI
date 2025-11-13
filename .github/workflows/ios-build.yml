@@ -78,7 +78,7 @@
             CODE_SIGNING_ALLOWED=YES \
             CODE_SIGNING_REQUIRED=YES 
         env:
-          OTHER_SWIFT_FLAGS: "-Xswiftc -no-provis
+          OTHER_SWIFT_FLAGS: "-Xswiftc -no-provisioning-profile"
   
       # 7. .ipa にエクスポート
       - name: Export IPA

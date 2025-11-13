@@ -1,5 +1,6 @@
 import Foundation
 import CoreML
+import ZIPFoundation
 
 class ModelManager {
     static let shared = ModelManager()
@@ -32,7 +33,7 @@ class ModelManager {
             do {
                 try FileManager.default.moveItem(at: tempURL, to: zipURL)
 
-                // ✅ ZIP解凍 — ZIPFoundationのコードを直接利用
+                // ✅ ZIP解凍 — throwing initializer を使用
                 try self.unzipFile(at: zipURL, to: documents)
 
                 // モデルロード
@@ -48,15 +49,15 @@ class ModelManager {
         }.resume()
     }
 
-    // MARK: - ZIP解凍処理（ZIPFoundationの内部コードを抜粋）
+    // MARK: - ZIP解凍処理（deprecated 警告なし）
     func unzipFile(at sourceURL: URL, to destinationURL: URL) throws {
-        guard let archive = Archive(url: sourceURL, accessMode: .read) else {
-            throw NSError(domain: "ZIPError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Archiveを開けません"])
-        }
+        // throwing initializer を使う
+        let archive = try Archive(url: sourceURL, accessMode: .read)
 
         for entry in archive {
             let destinationPath = destinationURL.appendingPathComponent(entry.path)
-            try archive.extract(entry, to: destinationPath)
+            // extract の戻り値は不要なので _ = で明示
+            _ = try archive.extract(entry, to: destinationPath)
         }
     }
 

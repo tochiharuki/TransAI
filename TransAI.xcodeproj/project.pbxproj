@@ -28,7 +28,6 @@
 		8878CB4D2EC61A5B00FACE83 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB372EC61A5B00FACE83 /* FileManager+ZIP.swift */; };
 		8878CB4E2EC61A5B00FACE83 /* Entry+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB352EC61A5B00FACE83 /* Entry+Serialization.swift */; };
 		8878CB4F2EC61A5B00FACE83 /* Archive+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB282EC61A5B00FACE83 /* Archive+Helpers.swift */; };
-		8878CB502EC61A5B00FACE83 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8878CB232EC61A5B00FACE83 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,7 +298,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8878CB502EC61A5B00FACE83 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

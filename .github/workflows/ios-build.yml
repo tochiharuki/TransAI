@@ -61,7 +61,6 @@
       - name: Build archive (Manual Signing)
         run: |
           set -e
-          xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
           xcodebuild \
             -project TransAI.xcodeproj \
             -scheme TransAI \
@@ -74,7 +73,10 @@
             CODE_SIGN_IDENTITY="Apple Distribution" \
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
             DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
-            PRODUCT_BUNDLE_IDENTIFIER="com.haruki.TransAI"
+            PRODUCT_BUNDLE_IDENTIFIER="com.haruki.TransAI" \
+            CODE_SIGNING_ALLOWED=YES \
+            CODE_SIGNING_REQUIRED=YES \
+            -verbose -showBuildTimingSummary
   
       # 7. .ipa にエクスポート
       - name: Export IPA
@@ -83,8 +85,7 @@
           xcodebuild -exportArchive \
             -archivePath $PWD/build/TransAI.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
-            -exportPath $PWD/build \
-            -allowProvisioningUpdates
+            -exportPath $PWD/build
           echo "Contents of build directory:"
           ls -al build || true
 

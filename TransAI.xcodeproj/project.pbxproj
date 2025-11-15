@@ -29,6 +29,7 @@
 		8878CBB02EC6DBCA00FACE83 /* Archive+ReadingDeprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB8E2EC6DBCA00FACE83 /* Archive+ReadingDeprecated.swift */; };
 		8878CBB12EC6DBCA00FACE83 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB942EC6DBCA00FACE83 /* Data+Serialization.swift */; };
 		8878CBC32EC761AA00FACE83 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8878CBC22EC761AA00FACE83 /* ExportOptions.plist */; };
+		8878CBDB2EC8550F00FACE83 /* PrivacyInfo.xcprivacy in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB852EC6DBCA00FACE83 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -351,6 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8878CBDB2EC8550F00FACE83 /* PrivacyInfo.xcprivacy in Sources */,
 				8878CB9D2EC6DBCA00FACE83 /* Date+ZIP.swift in Sources */,
 				8878CB9E2EC6DBCA00FACE83 /* Archive+WritingDeprecated.swift in Sources */,
 				8878CB9F2EC6DBCA00FACE83 /* Archive.swift in Sources */,

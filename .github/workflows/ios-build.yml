@@ -60,6 +60,8 @@
       # 6. アーカイブ作成（Manual Signing）
       - name: Build archive
         run: |
+          mkdir -p logs
+          # 標準出力・標準エラーを logs/build.log に保存
           xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
           xcodebuild \
             -project TransAI.xcodeproj \
@@ -71,9 +73,16 @@
             archive \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
-            -verbose -showBuildTimingSummary \
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
-            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
+            DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
+            -verbose -showBuildTimingSummary \
+            > logs/build.log 2>&1 || true
+      
+      - name: Upload build logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: logs/build.log
 
 
   

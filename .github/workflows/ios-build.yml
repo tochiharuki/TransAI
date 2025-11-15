@@ -73,6 +73,7 @@
             CODE_SIGN_IDENTITY="Apple Distribution" \
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
             DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
+            -allowProvisioningUpdates \
             PRODUCT_BUNDLE_IDENTIFIER="com.haruki.TransAI" \
             CODE_SIGNING_ALLOWED=YES \
             CODE_SIGNING_REQUIRED=YES \
@@ -85,7 +86,8 @@
           xcodebuild -exportArchive \
             -archivePath $PWD/build/TransAI.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
-            -exportPath $PWD/build
+            -exportPath $PWD/build \
+            -allowProvisioningUpdates
           echo "Contents of build directory:"
           ls -al build || true
 

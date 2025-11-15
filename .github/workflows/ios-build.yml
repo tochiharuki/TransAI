@@ -71,7 +71,7 @@
             -archivePath $PWD/build/TransAI.xcarchive \
             archive \
             CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="iPhone Distribution" \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
             DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
 

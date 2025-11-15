@@ -58,14 +58,13 @@
         run: rm -rf ~/Library/Developer/Xcode/DerivedData
 
       # 6. アーカイブ作成（Manual Signing）
-      - name: Build archive (Manual Signing)
+      - name: Build archive
         run: |
-          set -e
+          xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
           xcodebuild \
             -project TransAI.xcodeproj \
             -scheme TransAI \
             -sdk iphoneos \
-            -destination 'generic/platform=iOS' \
             -configuration Release \
             -archivePath $PWD/build/TransAI.xcarchive \
             archive \
@@ -74,9 +73,9 @@
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
             DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}" \
             PRODUCT_BUNDLE_IDENTIFIER="com.haruki.TransAI" \
-            CODE_SIGNING_ALLOWED=YES \
-            CODE_SIGNING_REQUIRED=YES \
-            -verbose -showBuildTimingSummary
+            CODE_SIGNING_ALLOWED=YES
+
+
   
       # 7. .ipa にエクスポート
       - name: Export IPA

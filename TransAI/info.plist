@@ -5,7 +5,7 @@
     <key>CFBundleName</key>
     <string>TransAI</string>
     <key>CFBundleIdentifier</key>
-    <string>com.example.TransAI</string>
+    <string>com.haruki.TransAI</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
     <key>CFBundleShortVersionString</key>

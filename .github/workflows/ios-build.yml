@@ -68,7 +68,7 @@
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
             -configuration Release \
-            -archivePath $PWD/build/ScanApp.xcarchive \
+            -archivePath $PWD/build/TransAI.xcarchive \
             archive \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="iPhone Distribution" \

@@ -72,6 +72,7 @@
             archive \
             CODE_SIGN_STYLE=Manual \
             CODE_SIGN_IDENTITY="Apple Distribution" \
+            -verbose -showBuildTimingSummary \
             PROVISIONING_PROFILE_SPECIFIER="TransAI_AdHoc_Profile" \
             DEVELOPMENT_TEAM="${{ secrets.TEAM_ID }}"
 

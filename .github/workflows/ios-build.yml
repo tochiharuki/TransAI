@@ -62,7 +62,6 @@
         run: |
           xcodebuild clean -project TransAI.xcodeproj -scheme TransAI -configuration Release
           xcodebuild \
-            #-quiet \
             -project TransAI.xcodeproj \
             -scheme TransAI \
             -sdk iphoneos \

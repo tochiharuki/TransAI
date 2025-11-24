@@ -1,12 +1,10 @@
 import os
-import shutil
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-# CORS 設定
+# CORS（必要なら調整）
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,14 +13,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ディレクトリ設定
 UPLOAD_ROOT = "uploads"
-STATIC_ROOT = "static"
 os.makedirs(UPLOAD_ROOT, exist_ok=True)
-os.makedirs(STATIC_ROOT, exist_ok=True)
-
-# static フォルダを /static/ で提供
-app.mount("/static", StaticFiles(directory=STATIC_ROOT), name="static")
 
 
 # ---------------------------
@@ -34,10 +26,14 @@ async def upload_chunk(
     chunk_index: int = Form(...),
     file: UploadFile = File(...)
 ):
+    # 保存ディレクトリ
     save_dir = os.path.join(UPLOAD_ROOT, upload_id)
     os.makedirs(save_dir, exist_ok=True)
 
+    # チャンクファイルパス
     chunk_path = os.path.join(save_dir, f"{chunk_index}.part")
+
+    # チャンク保存
     with open(chunk_path, "wb") as f:
         f.write(await file.read())
 
@@ -50,16 +46,18 @@ async def upload_chunk(
 @app.post("/merge")
 async def merge_files(upload_id: str = Form(...)):
     save_dir = os.path.join(UPLOAD_ROOT, upload_id)
-    output_path = os.path.join(STATIC_ROOT, "TransAI.ipa")
+    output_path = os.path.join(UPLOAD_ROOT, f"{upload_id}.ipa")
 
     if not os.path.exists(save_dir):
         return {"error": "upload_id not found"}
 
+    # .part ファイル一覧を順番に並べる
     part_files = sorted(
         [f for f in os.listdir(save_dir) if f.endswith(".part")],
         key=lambda x: int(x.replace(".part", ""))
     )
 
+    # 結合処理
     with open(output_path, "wb") as outfile:
         for part in part_files:
             with open(os.path.join(save_dir, part), "rb") as pf:
@@ -67,21 +65,10 @@ async def merge_files(upload_id: str = Form(...)):
 
     return {
         "status": "merged",
-        "ipa_url": f"/static/TransAI.ipa",
+        "output": output_path,
         "parts": len(part_files)
     }
 
-@app.post("/reset-all")
-async def reset_all():
-    # 全削除対象
-    targets = ["uploads", "static"]
-
-    for t in targets:
-        if os.path.exists(t):
-            shutil.rmtree(t)  # フォルダごと削除
-            os.makedirs(t, exist_ok=True)  # 空フォルダを再作成
-
-    return {"status": "all data reset"}
 
 # ---------------------------
 # 動作確認用

@@ -9,15 +9,14 @@ class ChatViewModel: ObservableObject {
     func sendMessage(_ text: String) {
         let userMessage = ChatMessage(
             text: text,
-            sender: .user,
-            choices: nil,
-            answerIndex: nil,
-            explanation: nil
+            sender: .user
         )
         messages.append(userMessage)
-
-        // AIに問い合わせ
-        fetchAIResponse(prompt: text)
+    
+        // コンテキスト込みのプロンプト生成
+        let prompt = buildContextPrompt(userMessage: text)
+    
+        fetchAIResponse(prompt: prompt)
     }
 
     // privateを削除して外部からも呼べるように
@@ -73,5 +72,37 @@ class ChatViewModel: ObservableObject {
         )
     
         messages.append(aiMsg)
+    }
+    
+    func buildContextPrompt(userMessage: String) -> String {
+        // 直近の問題（AI の最後の問題メッセージ）を取得
+        guard let lastQuiz = messages.last(where: { $0.sender == .ai && $0.choices != nil }) else {
+            return userMessage   // 問題がまだ無い場合はそのまま
+        }
+    
+        let question = lastQuiz.text
+        let choices = lastQuiz.choices?.joined(separator: " / ") ?? ""
+        let explanation = lastQuiz.explanation ?? ""
+        let answerIndex = lastQuiz.answerIndex ?? -1
+    
+        // ユーザー回答
+        let userAnswer = messages.first(where: {
+            $0.sender == .user && $0.text == (lastQuiz.choices?[lastQuiz.selectedIndex ?? -1] ?? "")
+        })?.text ?? "未回答"
+    
+        return """
+    【直近の問題】
+    問題文: \(question)
+    選択肢: \(choices)
+    ユーザーの回答: \(userAnswer)
+    正解番号: \(answerIndex)
+    解説: \(explanation)
+    
+    【ユーザーからの質問】
+    \(userMessage)
+    
+    【指示】
+    上記の問題内容とユーザーの回答状況を踏まえて、わかりやすく回答してください。
+    """
     }
 }

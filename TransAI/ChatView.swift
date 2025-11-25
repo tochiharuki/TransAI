@@ -52,14 +52,14 @@ struct ChatMessageView: View {
             
                 Text(msg.text)
                     .padding(12)
+                    .padding(.leading, msg.sender == .ai ? 14 : 0)
+                    .padding(.trailing, msg.sender == .user ? 14 : 0)
                     .foregroundColor(msg.sender == .user ? .white : .black)
                     .background(
-                        SpeechBubble(isUser: msg.sender == .user, triangleWidth: triangleWidth)
+                        SpeechBubble(isUser: msg.sender == .user)
                             .fill(msg.sender == .user ? Color.blue : Color.gray.opacity(0.2))
                     )
-                    // 三角を考慮したオフセット
-                    .offset(x: msg.sender == .user ? -triangleWidth/2 : triangleWidth/2)
-                    .frame(maxWidth: 250, alignment: .center)
+                    .frame(maxWidth: 250, alignment: msg.sender == .user ? .trailing : .leading)
             
                 if msg.sender == .ai { Spacer() }
             }

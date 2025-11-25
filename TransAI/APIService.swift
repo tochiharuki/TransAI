@@ -4,15 +4,15 @@ struct QuizResponse: Codable {
     let question: String
     let choices: [String]
     let answerIndex: Int
-    let explanation: String?  // 解説用
+    let explanation: String?
 }
 
 class APIService {
     static let shared = APIService()
-
     private let baseURL = "https://deepseek-api-server.onrender.com/ask"
 
-    func fetchQuiz(completion: @escaping (Result<QuizResponse, Error>) -> Void) {
+    // 任意のメッセージを送れるように変更
+    func fetchQuiz(prompt: String, completion: @escaping (Result<QuizResponse, Error>) -> Void) {
         guard let url = URL(string: baseURL) else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0)))
             return
@@ -22,27 +22,13 @@ class APIService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        // DeepSeekに送るプロンプト
-        let body: [String: Any] = [
-            "message": """
-            基本情報技術者試験の4択問題を1問だけ作成してください。
-            出力形式はJSON形式で、次のキーを返してください:
-            {
-                "question": "問題文",
-                "choices": ["選択肢1", "選択肢2", "選択肢3", "選択肢4"],
-                "answerIndex": 0〜3の数字（正解のインデックス）,
-                "explanation": "解説文"
-            }
-            絶対にJSONのみ返してください。
-            """
-        ]
+        let body: [String: Any] = ["message": prompt]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
-
-        // タイムアウトを延長
+        // タイムアウト延長
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 120
-        config.timeoutIntervalForResource = 120
+        config.timeoutIntervalForRequest = 180    // リクエスト送信待ち最大時間（秒）
+        config.timeoutIntervalForResource = 180   // レスポンス全体を待つ最大時間（秒）
         let session = URLSession(configuration: config)
 
         session.dataTask(with: request) { data, response, error in
@@ -50,12 +36,10 @@ class APIService {
                 completion(.failure(error))
                 return
             }
-
             guard let data = data else {
                 completion(.failure(NSError(domain: "No data", code: 0)))
                 return
             }
-
             do {
                 let quiz = try JSONDecoder().decode(QuizResponse.self, from: data)
                 completion(.success(quiz))
@@ -67,6 +51,3 @@ class APIService {
         }.resume()
     }
 }
-
-
-

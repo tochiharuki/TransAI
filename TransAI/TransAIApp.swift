@@ -4,7 +4,7 @@ import SwiftUI
 struct TransAIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ChatView()
         }
     }
 }

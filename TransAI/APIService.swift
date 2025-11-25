@@ -4,6 +4,7 @@ struct QuizResponse: Codable {
     let question: String
     let choices: [String]
     let answerIndex: Int
+    let explanation: String?  // 解説用
 }
 
 class APIService {
@@ -25,7 +26,14 @@ class APIService {
         let body: [String: Any] = [
             "message": """
             基本情報技術者試験の4択問題を1問だけ作成してください。
-            出力形式はJSON形式で question / choices / answerIndex を返してください。
+            出力形式はJSON形式で、次のキーを返してください:
+            {
+                "question": "問題文",
+                "choices": ["選択肢1", "選択肢2", "選択肢3", "選択肢4"],
+                "answerIndex": 0〜3の数字（正解のインデックス）,
+                "explanation": "解説文"
+            }
+            絶対にJSONのみ返してください。
             """
         ]
 
@@ -59,3 +67,6 @@ class APIService {
         }.resume()
     }
 }
+
+
+

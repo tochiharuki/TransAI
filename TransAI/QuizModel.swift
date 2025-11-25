@@ -4,6 +4,7 @@ class QuizModel: ObservableObject {
     @Published var quiz: QuizResponse?
     @Published var selectedIndex: Int? = nil
     @Published var isCorrect: Bool? = nil
+    @Published var showExplanation: Bool = false
 
     func loadNewQuiz() {
         APIService.shared.fetchQuiz { result in
@@ -21,7 +22,9 @@ class QuizModel: ObservableObject {
     }
 
     func selectAnswer(_ index: Int) {
+        guard let quiz = quiz else { return }
         selectedIndex = index
-        isCorrect = (index == quiz?.answerIndex)
+        isCorrect = (index == quiz.answerIndex)
+        showExplanation = true
     }
 }

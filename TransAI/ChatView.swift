@@ -31,6 +31,24 @@ struct ChatView: View {
                         )
                     }
                 }
+                
+                Button(action: {
+                    viewModel.fetchAIResponse(prompt:
+"""
+基本情報技術者試験の4択問題を1問作成してください。
+出力形式はJSONで question / choices / answerIndex / explanation を返してください。
+"""
+                    )
+                }) {
+                    Text("次の問題へ")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue.opacity(0.9))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 4)
 
                 HStack {
                     TextField("メッセージを入力", text: $viewModel.inputText)

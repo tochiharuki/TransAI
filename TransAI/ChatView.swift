@@ -57,6 +57,7 @@ struct ChatView: View {
                     TextField("メッセージを入力…", text: $viewModel.inputText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .frame(minHeight: 36)
+                        .colorScheme(.light)
                 
                     // ▼ 送信ボタン
                     Button(action: {

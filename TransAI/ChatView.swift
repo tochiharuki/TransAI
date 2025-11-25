@@ -31,12 +31,14 @@ struct ChatView: View {
                     }
 
                     .onAppear {
-                        viewModel.fetchAIResponse(prompt:
-"""
-基本情報技術者試験の4択問題を1問作成してください。
-出力形式はJSONで question / choices / answerIndex / explanation を返してください。
-"""
+                        viewModel.fetchAIResponse(
+                            prompt: """
+                            基本情報技術者試験の4択問題を1問作成してください。
+                            出力形式はJSONで question / choices / answerIndex / explanation を返してください。
+                            """,
+                            expectsQuiz: true     // ← 追加
                         )
+
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                             if let lastID = viewModel.messages.last?.id {
@@ -60,10 +62,13 @@ struct ChatView: View {
                         .colorScheme(.light)
                 
                     // ▼ 送信ボタン
+                  
                     Button(action: {
                         let text = viewModel.inputText.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !text.isEmpty else { return }
-                        viewModel.sendMessage(text)
+                    
+                        viewModel.sendUserQuestion(text)   // ← ここを変更！
+                    
                         viewModel.inputText = ""
                     }) {
                         Image(systemName: "paperplane.fill")
@@ -72,12 +77,7 @@ struct ChatView: View {
                 
                     // ▼ Next（次の問題）ボタン — 右端
                     Button(action: {
-                        viewModel.fetchAIResponse(prompt:
-                """
-                基本情報技術者試験の4択問題を1問作成してください。
-                出力形式はJSONで question / choices / answerIndex / explanation を返してください。
-                """
-                        )
+                        viewModel.fetchQuiz()
                     }) {
                         Text("次の問題")
                             .font(.system(size: 12))

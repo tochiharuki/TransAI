@@ -4,39 +4,47 @@ struct ChatView: View {
     @StateObject private var viewModel = ChatViewModel()
 
     var body: some View {
-        Color.white.ignoresSafeArea()
-        VStack {
-            ScrollViewReader { scrollView in
-                ScrollView {
-                    VStack(spacing: 12) {
-                        ForEach(viewModel.messages) { msg in
-                            ChatMessageView(msg: msg) { index in
-                                viewModel.selectAnswer(message: msg, index: index)
+        ZStack {
+            Color.white.ignoresSafeArea()   // ← アプリ全体を白背景にする
+
+            VStack {
+                ScrollViewReader { scrollView in
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(viewModel.messages) { msg in
+                                ChatMessageView(msg: msg) { index in
+                                    viewModel.selectAnswer(message: msg, index: index)
+                                }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
+                    .onChange(of: viewModel.messages.count) { _ in
+                        withAnimation { scrollView.scrollTo(viewModel.messages.last?.id) }
+                    }
+                    .onAppear {
+                        viewModel.fetchAIResponse(prompt:
+"""
+基本情報技術者試験の4択問題を1問作成してください。
+出力形式はJSONで question / choices / answerIndex / explanation を返してください。
+"""
+                        )
+                    }
                 }
-                
-                .onChange(of: viewModel.messages.count) { _ in
-                    withAnimation { scrollView.scrollTo(viewModel.messages.last?.id) }
-                }
-                .onAppear {
-                    viewModel.fetchAIResponse(prompt: "基本情報技術者試験の4択問題を1問作成してください。出力形式はJSONで question / choices / answerIndex / explanation を返してください。")
-                }
-            }
 
-            HStack {
-                TextField("メッセージを入力", text: $viewModel.inputText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button("送信") {
-                    let text = viewModel.inputText.trimmingCharacters(in: .whitespacesAndNewlines)
-                    guard !text.isEmpty else { return }
-                    viewModel.sendMessage(text)
-                    viewModel.inputText = ""
+                HStack {
+                    TextField("メッセージを入力", text: $viewModel.inputText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                    Button("送信") {
+                        let text = viewModel.inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+                        guard !text.isEmpty else { return }
+                        viewModel.sendMessage(text)
+                        viewModel.inputText = ""
+                    }
                 }
+                .padding()
             }
-            .padding()
         }
     }
 }

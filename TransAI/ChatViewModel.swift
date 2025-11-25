@@ -18,7 +18,14 @@ class ChatViewModel: ObservableObject {
     }
 
     func sendUserQuestion(_ text: String) {
+        // ① ユーザーメッセージをまず追加
+        let userMessage = ChatMessage(text: text, sender: .user)
+        messages.append(userMessage)
+    
+        // ② コンテキスト付きプロンプト生成
         let prompt = buildContextPrompt(userMessage: text)
+    
+        // ③ AI へ送信（通常回答モード）
         fetchAIResponse(prompt: prompt, expectsQuiz: false)
     }
 

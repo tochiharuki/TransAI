@@ -49,7 +49,7 @@ struct ChatMessageView: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 if msg.sender == .user { Spacer() }
-
+            
                 Text(msg.text)
                     .padding(12)
                     .foregroundColor(msg.sender == .user ? .white : .black)
@@ -57,10 +57,10 @@ struct ChatMessageView: View {
                         SpeechBubble(isUser: msg.sender == .user, triangleWidth: triangleWidth)
                             .fill(msg.sender == .user ? Color.blue : Color.gray.opacity(0.2))
                     )
-                    // 三角分だけ内側に余白を追加
-                    .padding(msg.sender == .user ? .trailing : .leading, triangleWidth)
-                    .frame(maxWidth: 250, alignment: msg.sender == .user ? .trailing : .leading)
-
+                    // 三角を考慮したオフセット
+                    .offset(x: msg.sender == .user ? -triangleWidth/2 : triangleWidth/2)
+                    .frame(maxWidth: 250, alignment: .center)
+            
                 if msg.sender == .ai { Spacer() }
             }
 

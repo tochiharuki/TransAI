@@ -5,6 +5,7 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
+            Color.white.ignoresSafeArea()
             ScrollViewReader { scrollView in
                 ScrollView {
                     VStack(spacing: 12) {
@@ -16,7 +17,7 @@ struct ChatView: View {
                     }
                     .padding()
                 }
-                .background(Color.white)
+                
                 .onChange(of: viewModel.messages.count) { _ in
                     withAnimation { scrollView.scrollTo(viewModel.messages.last?.id) }
                 }

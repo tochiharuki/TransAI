@@ -4,8 +4,8 @@ struct ChatView: View {
     @StateObject private var viewModel = ChatViewModel()
 
     var body: some View {
+        Color.white.ignoresSafeArea()
         VStack {
-            Color.white.ignoresSafeArea()
             ScrollViewReader { scrollView in
                 ScrollView {
                     VStack(spacing: 12) {

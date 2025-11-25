@@ -86,6 +86,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		884330822ED5ACB500BB8869 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		88F0A7C82EC0CDDF00CE06FC = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +101,7 @@
 				88F0A7EF2EC0CDE000CE06FC /* TransAIUITests */,
 				88F0A7D22EC0CDDF00CE06FC /* Products */,
 				8878CBC22EC761AA00FACE83 /* ExportOptions.plist */,
+				884330822ED5ACB500BB8869 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

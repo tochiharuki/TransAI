@@ -67,13 +67,29 @@ struct ChatMessageView: View {
 
             if let choices = msg.choices {
                 ForEach(choices.indices, id: \.self) { i in
-                    Button(action: { onSelectAnswer(i) }) {
+                    
+                    let isSelected = (msg.selectedIndex == i)
+                    let isCorrect = (i == msg.answerIndex)
+            
+                    Button(action: {
+                        if msg.selectedIndex == nil { // 1回だけ選択可能
+                            onSelectAnswer(i)
+                        }
+                    }) {
                         Text(choices[i])
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.gray.opacity(0.3))
+                            .background(
+                                msg.selectedIndex == nil
+                                ? Color.gray.opacity(0.3)
+                                : (isCorrect ? Color.green.opacity(0.6)
+                                             : (isSelected ? Color.red.opacity(0.6)
+                                                           : Color.gray.opacity(0.3)))
+                            )
                             .cornerRadius(10)
+                            .foregroundColor(.black)
                     }
+                    .disabled(msg.selectedIndex != nil)
                 }
             }
         }

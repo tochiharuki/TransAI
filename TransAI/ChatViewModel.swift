@@ -49,30 +49,52 @@ class ChatViewModel: ObservableObject {
     }
 
     func selectAnswer(message: ChatMessage, index: Int) {
-        guard let answerIndex = message.answerIndex, let choices = message.choices else { return }
-
-        // 1. ユーザーの選択肢をメッセージとして追加
-        let userChoiceMessage = ChatMessage(
-            text: choices[index],
-            sender: .user,
-            choices: nil,
-            answerIndex: nil,
-            explanation: nil
-        )
-        messages.append(userChoiceMessage)
-
-        // 2. 正誤 + 解説を AI メッセージとして追加
-        let isCorrect = (index == answerIndex)
-        let responseText = isCorrect ? "⭕ 正解！" : "❌ 不正解"
-        let explanationText = message.explanation ?? ""
-
-        let aiFeedback = ChatMessage(
-            text: "\(responseText)\n解説: \(explanationText)",
+        guard let msgIndex = messages.firstIndex(where: { $0.id == message.id }) else { return }
+    
+        // --- ① どの選択肢を選んだか保存する ---
+        messages[msgIndex].selectedIndex = index
+    
+        // --- ② ユーザーの選択肢を吹き出しとして表示 ---
+        if let choices = msg.choices {
+            ForEach(choices.indices, id: \.self) { i in
+                
+                let isSelected = (msg.selectedIndex == i)
+                let isCorrect = (i == msg.answerIndex)
+        
+                Button(action: {
+                    if msg.selectedIndex == nil { // 1回だけ選択可能
+                        onSelectAnswer(i)
+                    }
+                }) {
+                    Text(choices[i])
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            msg.selectedIndex == nil
+                            ? Color.gray.opacity(0.3)
+                            : (isCorrect ? Color.green.opacity(0.6)
+                                         : (isSelected ? Color.red.opacity(0.6)
+                                                       : Color.gray.opacity(0.3)))
+                        )
+                        .cornerRadius(10)
+                        .foregroundColor(.black)
+                }
+                .disabled(msg.selectedIndex != nil)
+            }
+        }
+    
+        // --- ③ 正誤判定 ---
+        let isCorrect = (index == message.answerIndex)
+        let resultText = isCorrect ? "⭕ 正解！" : "❌ 不正解"
+    
+        // --- ④ AIの解説メッセージ ---
+        let aiMessage = ChatMessage(
+            text: "\(resultText)\n解説: \(message.explanation ?? "")",
             sender: .ai,
             choices: nil,
             answerIndex: nil,
             explanation: nil
         )
-        messages.append(aiFeedback)
-    }
+        messages.append(aiMessage)
+}
 }

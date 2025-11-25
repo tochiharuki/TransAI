@@ -1,81 +1,53 @@
 import SwiftUI
-import CoreML
 
 struct ContentView: View {
-    @State private var isModelLoaded = false
-    @State private var isLoading = false
-    @State private var outputText = "出力なし"
+    @StateObject private var viewModel = QuizModel()
 
     var body: some View {
         VStack(spacing: 20) {
-            Button(isLoading ? "読み込み中..." : "モデル読み込み") {
-                guard !isLoading else { return }
-                isLoading = true
-                ModelManager.shared.downloadAndLoadModel(
-                    from: "https://www.dropbox.com/scl/fi/2lszs52ce5mzjrm1t94t6/open_calm_1b_8bit.mlmodelc.zip?rlkey=zo4rnuywouw1p814kulozz439&st=p3qji3eo&dl=1"
-                ) { success in
-                    DispatchQueue.main.async {
-                        isModelLoaded = success
-                        isLoading = false
-                        outputText = success ? "✅ モデル読み込み完了" : "❌ モデル読み込み失敗"
+
+            if let quiz = viewModel.quiz {
+                Text(quiz.question)
+                    .font(.title2)
+                    .padding()
+
+                ForEach(0..<quiz.choices.count, id: \.self) { i in
+                    Button(action: {
+                        viewModel.selectAnswer(i)
+                    }) {
+                        Text(quiz.choices[i])
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(buttonColor(for: i))
+                            .foregroundColor(.white)
+                            .cornerRadius(12)
                     }
+                }
+
+                if let isCorrect = viewModel.isCorrect {
+                    Text(isCorrect ? "⭕ 正解！" : "❌ 不正解")
+                        .font(.title)
+                        .padding()
                 }
             }
 
-            Button("推論テスト") {
-                guard isModelLoaded else {
-                    outputText = "⚠️ モデル未ロード"
-                    return
-                }
-
-                outputText = "推論中..."
-                DispatchQueue.global(qos: .userInitiated).async {
-                    do {
-                        let prompt = "こんにちは"
-                        let inputArray = try prompt.toMLMultiArray()
-                        if let result = ModelManager.shared.predict(inputArray: inputArray) {
-                            DispatchQueue.main.async {
-                                outputText = "✅ 推論成功: \(result)"
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                outputText = "❌ 推論失敗"
-                            }
-                        }
-                    } catch {
-                        DispatchQueue.main.async {
-                            outputText = "❌ 配列変換失敗: \(error)"
-                        }
-                    }
-                }
+            Button("新しい問題を取得") {
+                viewModel.loadNewQuiz()
             }
-
-            Text(outputText)
-                .padding()
+            .padding()
         }
         .padding()
+        .onAppear {
+            viewModel.loadNewQuiz()
+        }
     }
-}
 
-extension String {
-    func toMLMultiArray(expectedLength: Int = 4) throws -> MLMultiArray {
-        // モデル仕様に合わせて固定長で配列を作る
-        let array = try MLMultiArray(shape: [1, NSNumber(value: expectedLength)], dataType: .double)
-
-        // 文字列 → ASCII に変換、足りない部分は 0 で埋める
-        for i in 0..<expectedLength {
-            if i < self.count {
-                let char = self[self.index(self.startIndex, offsetBy: i)]
-                array[i] = NSNumber(value: Double(char.asciiValue ?? 0))
-            } else {
-                array[i] = 0
+    private func buttonColor(for index: Int) -> Color {
+        if let selected = viewModel.selectedIndex {
+            if selected == index {
+                return viewModel.isCorrect ?? false ? .green : .red
             }
         }
-
-        return array
+        return .blue
     }
-}
-
-#Preview {
-    ContentView()
 }

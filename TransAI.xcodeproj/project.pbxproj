@@ -6,31 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		8878CB9D2EC6DBCA00FACE83 /* Date+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB952EC6DBCA00FACE83 /* Date+ZIP.swift */; };
-		8878CB9E2EC6DBCA00FACE83 /* Archive+WritingDeprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB902EC6DBCA00FACE83 /* Archive+WritingDeprecated.swift */; };
-		8878CB9F2EC6DBCA00FACE83 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB872EC6DBCA00FACE83 /* Archive.swift */; };
-		8878CBA02EC6DBCA00FACE83 /* Archive+Reading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB8D2EC6DBCA00FACE83 /* Archive+Reading.swift */; };
-		8878CBA12EC6DBCA00FACE83 /* FileManager+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB992EC6DBCA00FACE83 /* FileManager+ZIP.swift */; };
-		8878CBA22EC6DBCA00FACE83 /* Archive+Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB892EC6DBCA00FACE83 /* Archive+Deprecated.swift */; };
-		8878CBA32EC6DBCA00FACE83 /* Data+CompressionDeprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB932EC6DBCA00FACE83 /* Data+CompressionDeprecated.swift */; };
-		8878CBA42EC6DBCA00FACE83 /* URL+ZIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB9B2EC6DBCA00FACE83 /* URL+ZIP.swift */; };
-		8878CBA52EC6DBCA00FACE83 /* Data+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB922EC6DBCA00FACE83 /* Data+Compression.swift */; };
-		8878CBA62EC6DBCA00FACE83 /* Archive+MemoryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB8B2EC6DBCA00FACE83 /* Archive+MemoryFile.swift */; };
-		8878CBA72EC6DBCA00FACE83 /* Archive+Writing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB8F2EC6DBCA00FACE83 /* Archive+Writing.swift */; };
-		8878CBA82EC6DBCA00FACE83 /* Archive+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB8A2EC6DBCA00FACE83 /* Archive+Helpers.swift */; };
-		8878CBA92EC6DBCA00FACE83 /* Archive+BackingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB882EC6DBCA00FACE83 /* Archive+BackingConfiguration.swift */; };
-		8878CBAA2EC6DBCA00FACE83 /* Archive+ZIP64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB912EC6DBCA00FACE83 /* Archive+ZIP64.swift */; };
-		8878CBAB2EC6DBCA00FACE83 /* Entry+ZIP64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB982EC6DBCA00FACE83 /* Entry+ZIP64.swift */; };
-		8878CBAC2EC6DBCA00FACE83 /* Archive+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB8C2EC6DBCA00FACE83 /* Archive+Progress.swift */; };
-		8878CBAD2EC6DBCA00FACE83 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB962EC6DBCA00FACE83 /* Entry.swift */; };
-		8878CBAE2EC6DBCA00FACE83 /* Entry+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB972EC6DBCA00FACE83 /* Entry+Serialization.swift */; };
-		8878CBAF2EC6DBCA00FACE83 /* FileManager+ZIPDeprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB9A2EC6DBCA00FACE83 /* FileManager+ZIPDeprecated.swift */; };
-		8878CBB02EC6DBCA00FACE83 /* Archive+ReadingDeprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB8E2EC6DBCA00FACE83 /* Archive+ReadingDeprecated.swift */; };
-		8878CBB12EC6DBCA00FACE83 /* Data+Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878CB942EC6DBCA00FACE83 /* Data+Serialization.swift */; };
-		8878CBC32EC761AA00FACE83 /* ExportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8878CBC22EC761AA00FACE83 /* ExportOptions.plist */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		88F0A7E32EC0CDE000CE06FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -49,30 +24,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8878CB852EC6DBCA00FACE83 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		8878CB872EC6DBCA00FACE83 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
-		8878CB882EC6DBCA00FACE83 /* Archive+BackingConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+BackingConfiguration.swift"; sourceTree = "<group>"; };
-		8878CB892EC6DBCA00FACE83 /* Archive+Deprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Deprecated.swift"; sourceTree = "<group>"; };
-		8878CB8A2EC6DBCA00FACE83 /* Archive+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Helpers.swift"; sourceTree = "<group>"; };
-		8878CB8B2EC6DBCA00FACE83 /* Archive+MemoryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+MemoryFile.swift"; sourceTree = "<group>"; };
-		8878CB8C2EC6DBCA00FACE83 /* Archive+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Progress.swift"; sourceTree = "<group>"; };
-		8878CB8D2EC6DBCA00FACE83 /* Archive+Reading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Reading.swift"; sourceTree = "<group>"; };
-		8878CB8E2EC6DBCA00FACE83 /* Archive+ReadingDeprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+ReadingDeprecated.swift"; sourceTree = "<group>"; };
-		8878CB8F2EC6DBCA00FACE83 /* Archive+Writing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+Writing.swift"; sourceTree = "<group>"; };
-		8878CB902EC6DBCA00FACE83 /* Archive+WritingDeprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+WritingDeprecated.swift"; sourceTree = "<group>"; };
-		8878CB912EC6DBCA00FACE83 /* Archive+ZIP64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Archive+ZIP64.swift"; sourceTree = "<group>"; };
-		8878CB922EC6DBCA00FACE83 /* Data+Compression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Compression.swift"; sourceTree = "<group>"; };
-		8878CB932EC6DBCA00FACE83 /* Data+CompressionDeprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+CompressionDeprecated.swift"; sourceTree = "<group>"; };
-		8878CB942EC6DBCA00FACE83 /* Data+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Serialization.swift"; sourceTree = "<group>"; };
-		8878CB952EC6DBCA00FACE83 /* Date+ZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+ZIP.swift"; sourceTree = "<group>"; };
-		8878CB962EC6DBCA00FACE83 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
-		8878CB972EC6DBCA00FACE83 /* Entry+Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Serialization.swift"; sourceTree = "<group>"; };
-		8878CB982EC6DBCA00FACE83 /* Entry+ZIP64.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+ZIP64.swift"; sourceTree = "<group>"; };
-		8878CB992EC6DBCA00FACE83 /* FileManager+ZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+ZIP.swift"; sourceTree = "<group>"; };
-		8878CB9A2EC6DBCA00FACE83 /* FileManager+ZIPDeprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+ZIPDeprecated.swift"; sourceTree = "<group>"; };
-		8878CB9B2EC6DBCA00FACE83 /* URL+ZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ZIP.swift"; sourceTree = "<group>"; };
-		8878CBB32EC6DBF200FACE83 /* module.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		8878CBB42EC6DBF200FACE83 /* shim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shim.h; sourceTree = "<group>"; };
 		8878CBC22EC761AA00FACE83 /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
 		88F0A7D12EC0CDDF00CE06FC /* TransAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88F0A7E22EC0CDE000CE06FC /* TransAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,7 +31,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8878CBDA2EC851B100FACE83 /* Exceptions for "TransAI" folder in "TransAI" target */ = {
+		884330572ED5635400BB8869 /* Exceptions for "TransAI" folder in "TransAI" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -93,7 +44,7 @@
 		88F0A7D32EC0CDDF00CE06FC /* TransAI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8878CBDA2EC851B100FACE83 /* Exceptions for "TransAI" folder in "TransAI" target */,
+				884330572ED5635400BB8869 /* Exceptions for "TransAI" folder in "TransAI" target */,
 			);
 			path = TransAI;
 			sourceTree = "<group>";
@@ -135,57 +86,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8878CB862EC6DBCA00FACE83 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8878CB852EC6DBCA00FACE83 /* PrivacyInfo.xcprivacy */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		8878CB9C2EC6DBCA00FACE83 /* ZIPFoundation */ = {
-			isa = PBXGroup;
-			children = (
-				8878CB862EC6DBCA00FACE83 /* Resources */,
-				8878CB872EC6DBCA00FACE83 /* Archive.swift */,
-				8878CB882EC6DBCA00FACE83 /* Archive+BackingConfiguration.swift */,
-				8878CB892EC6DBCA00FACE83 /* Archive+Deprecated.swift */,
-				8878CB8A2EC6DBCA00FACE83 /* Archive+Helpers.swift */,
-				8878CB8B2EC6DBCA00FACE83 /* Archive+MemoryFile.swift */,
-				8878CB8C2EC6DBCA00FACE83 /* Archive+Progress.swift */,
-				8878CB8D2EC6DBCA00FACE83 /* Archive+Reading.swift */,
-				8878CB8E2EC6DBCA00FACE83 /* Archive+ReadingDeprecated.swift */,
-				8878CB8F2EC6DBCA00FACE83 /* Archive+Writing.swift */,
-				8878CB902EC6DBCA00FACE83 /* Archive+WritingDeprecated.swift */,
-				8878CB912EC6DBCA00FACE83 /* Archive+ZIP64.swift */,
-				8878CB922EC6DBCA00FACE83 /* Data+Compression.swift */,
-				8878CB932EC6DBCA00FACE83 /* Data+CompressionDeprecated.swift */,
-				8878CB942EC6DBCA00FACE83 /* Data+Serialization.swift */,
-				8878CB952EC6DBCA00FACE83 /* Date+ZIP.swift */,
-				8878CB962EC6DBCA00FACE83 /* Entry.swift */,
-				8878CB972EC6DBCA00FACE83 /* Entry+Serialization.swift */,
-				8878CB982EC6DBCA00FACE83 /* Entry+ZIP64.swift */,
-				8878CB992EC6DBCA00FACE83 /* FileManager+ZIP.swift */,
-				8878CB9A2EC6DBCA00FACE83 /* FileManager+ZIPDeprecated.swift */,
-				8878CB9B2EC6DBCA00FACE83 /* URL+ZIP.swift */,
-			);
-			path = ZIPFoundation;
-			sourceTree = "<group>";
-		};
-		8878CBB52EC6DBF200FACE83 /* CZLib */ = {
-			isa = PBXGroup;
-			children = (
-				8878CBB32EC6DBF200FACE83 /* module.modulemap */,
-				8878CBB42EC6DBF200FACE83 /* shim.h */,
-			);
-			path = CZLib;
-			sourceTree = "<group>";
-		};
 		88F0A7C82EC0CDDF00CE06FC = {
 			isa = PBXGroup;
 			children = (
-				8878CBB52EC6DBF200FACE83 /* CZLib */,
-				8878CB9C2EC6DBCA00FACE83 /* ZIPFoundation */,
 				88F0A7D32EC0CDDF00CE06FC /* TransAI */,
 				88F0A7E52EC0CDE000CE06FC /* TransAITests */,
 				88F0A7EF2EC0CDE000CE06FC /* TransAIUITests */,
@@ -326,7 +229,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8878CBC32EC761AA00FACE83 /* ExportOptions.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,27 +253,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8878CB9D2EC6DBCA00FACE83 /* Date+ZIP.swift in Sources */,
-				8878CB9E2EC6DBCA00FACE83 /* Archive+WritingDeprecated.swift in Sources */,
-				8878CB9F2EC6DBCA00FACE83 /* Archive.swift in Sources */,
-				8878CBA02EC6DBCA00FACE83 /* Archive+Reading.swift in Sources */,
-				8878CBA12EC6DBCA00FACE83 /* FileManager+ZIP.swift in Sources */,
-				8878CBA22EC6DBCA00FACE83 /* Archive+Deprecated.swift in Sources */,
-				8878CBA32EC6DBCA00FACE83 /* Data+CompressionDeprecated.swift in Sources */,
-				8878CBA42EC6DBCA00FACE83 /* URL+ZIP.swift in Sources */,
-				8878CBA52EC6DBCA00FACE83 /* Data+Compression.swift in Sources */,
-				8878CBA62EC6DBCA00FACE83 /* Archive+MemoryFile.swift in Sources */,
-				8878CBA72EC6DBCA00FACE83 /* Archive+Writing.swift in Sources */,
-				8878CBA82EC6DBCA00FACE83 /* Archive+Helpers.swift in Sources */,
-				8878CBA92EC6DBCA00FACE83 /* Archive+BackingConfiguration.swift in Sources */,
-				8878CBAA2EC6DBCA00FACE83 /* Archive+ZIP64.swift in Sources */,
-				8878CBAB2EC6DBCA00FACE83 /* Entry+ZIP64.swift in Sources */,
-				8878CBAC2EC6DBCA00FACE83 /* Archive+Progress.swift in Sources */,
-				8878CBAD2EC6DBCA00FACE83 /* Entry.swift in Sources */,
-				8878CBAE2EC6DBCA00FACE83 /* Entry+Serialization.swift in Sources */,
-				8878CBAF2EC6DBCA00FACE83 /* FileManager+ZIPDeprecated.swift in Sources */,
-				8878CBB02EC6DBCA00FACE83 /* Archive+ReadingDeprecated.swift in Sources */,
-				8878CBB12EC6DBCA00FACE83 /* Data+Serialization.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

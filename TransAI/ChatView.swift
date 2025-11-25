@@ -15,13 +15,21 @@ struct ChatView: View {
                                 ChatMessageView(msg: msg) { index in
                                     viewModel.selectAnswer(message: msg, index: index)
                                 }
+                                .id(msg.id)   // ← ここに移動！
                             }
+                            
                         }
                         .padding()
                     }
                     .onChange(of: viewModel.messages.count) { _ in
-                        withAnimation { scrollView.scrollTo(viewModel.messages.last?.id) }
+                        // 新規メッセージ追加時に最下部へ
+                        if let lastID = viewModel.messages.last?.id {
+                            withAnimation(.easeOut(duration: 0.25)) {
+                                scrollView.scrollTo(lastID, anchor: .bottom)
+                            }
+                        }
                     }
+
                     .onAppear {
                         viewModel.fetchAIResponse(prompt:
 """
@@ -29,39 +37,58 @@ struct ChatView: View {
 出力形式はJSONで question / choices / answerIndex / explanation を返してください。
 """
                         )
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            if let lastID = viewModel.messages.last?.id {
+                                withAnimation {
+                                    scrollView.scrollTo(lastID, anchor: .bottom)
+                                }
+                            }
+                        }
+
                     }
                 }
                 
-                Button(action: {
-                    viewModel.fetchAIResponse(prompt:
-"""
-基本情報技術者試験の4択問題を1問作成してください。
-出力形式はJSONで question / choices / answerIndex / explanation を返してください。
-"""
-                    )
-                }) {
-                    Text("次の問題へ")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue.opacity(0.9))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 4)
+                
 
-                HStack {
-                    TextField("メッセージを入力", text: $viewModel.inputText)
+                HStack(spacing: 8) {
+
+                    // ▼ テキスト入力
+                    TextField("メッセージを入力…", text: $viewModel.inputText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-
-                    Button("送信") {
+                        .frame(minHeight: 36)
+                
+                    // ▼ 送信ボタン
+                    Button(action: {
                         let text = viewModel.inputText.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !text.isEmpty else { return }
                         viewModel.sendMessage(text)
                         viewModel.inputText = ""
+                    }) {
+                        Image(systemName: "paperplane.fill")
+                            .font(.system(size: 18))
+                    }
+                
+                    // ▼ Next（次の問題）ボタン — 右端
+                    Button(action: {
+                        viewModel.fetchAIResponse(prompt:
+                """
+                基本情報技術者試験の4択問題を1問作成してください。
+                出力形式はJSONで question / choices / answerIndex / explanation を返してください。
+                """
+                        )
+                    }) {
+                        Text("次の問題")
+                            .font(.system(size: 12))
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 10)
+                            .background(Color.blue.opacity(0.9))
+                            .foregroundColor(.white)
+                            .cornerRadius(6)
                     }
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.bottom, 8)
             }
         }
     }

@@ -16,6 +16,7 @@ struct ChatView: View {
                     }
                     .padding()
                 }
+                .background(Color.white)
                 .onChange(of: viewModel.messages.count) { _ in
                     withAnimation { scrollView.scrollTo(viewModel.messages.last?.id) }
                 }

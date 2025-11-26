@@ -109,7 +109,7 @@ class ChatViewModel: ObservableObject {
         \(userMessage)
 
         【指示】
-        上記を踏まえて、丁寧に回答してください。
+        上記を踏まえて、簡潔にかつ正確に回答してください。
         """
     }
 }

@@ -5,6 +5,7 @@ import Combine
 class ChatViewModel: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var inputText: String = ""
+    @Published var usedQuestions: Set<String> = []
 
     let api = APIService.shared
 
@@ -19,10 +20,16 @@ class ChatViewModel: ObservableObject {
 
     // 次の問題を明示的に取得するとき
     func fetchQuiz() {
+        let avoidList = usedQuestions.joined(separator: " , ")
+    
         let prompt = """
-        基本情報技術者試験の4択問題を1問作成してください。
-        出力形式はJSONで question / choices / answerIndex / explanation を返してください。
-        """
+基本情報技術者試験の4択問題を1問作成してください。
+ただし、以下の問題タイトルと重複する問題は絶対に出題しないでください：
+\(avoidList)
+
+出力形式はJSONで question / choices / answerIndex / explanation を返してください。
+"""
+    
         fetchAIResponse(prompt: prompt, expectsQuiz: true)
     }
 
@@ -33,6 +40,8 @@ class ChatViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let quiz):
+                        let title = quiz.question
+                        self.usedQuestions.insert(title)
                         // ここで「問題」を UI に追加（問題文 + 選択肢）
                         let qMsg = ChatMessage(
                             text: quiz.question,

@@ -2,6 +2,7 @@
 import Foundation
 
 struct QuizResponse: Codable {
+    let title: String
     let question: String
     let choices: [String]
     let answerIndex: Int

@@ -24,10 +24,18 @@ class ChatViewModel: ObservableObject {
     
         let prompt = """
 基本情報技術者試験の4択問題を1問作成してください。
-ただし、以下の問題タイトルと重複する問題は絶対に出題しないでください：
-\(avoidList)
 
-出力形式はJSONで question / choices / answerIndex / explanation を返してください。
+必ず次の形式のJSONで返してください：
+{
+  "title": "問題を短く表すタイトル（10〜30文字）",
+  "question": "問題文全文",
+  "choices": ["A", "B", "C", "D"],
+  "answerIndex": 数値,
+  "explanation": "解説文"
+}
+
+ただし、以下のタイトルと重複する問題は絶対に出題しないでください：
+\(avoidList)
 """
     
         fetchAIResponse(prompt: prompt, expectsQuiz: true)
@@ -40,7 +48,7 @@ class ChatViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let quiz):
-                        let title = quiz.question
+                        let title = quiz.title
                         self.usedQuestions.insert(title)
                         // ここで「問題」を UI に追加（問題文 + 選択肢）
                         let qMsg = ChatMessage(

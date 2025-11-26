@@ -8,14 +8,6 @@ class ChatViewModel: ObservableObject {
     let api = APIService.shared   // ← 追加
 
     // ユーザー送信
-    func sendMessage(_ text: String) {
-        let userMessage = ChatMessage(text: text, sender: .user)
-        messages.append(userMessage)
-
-        let prompt = buildContextPrompt(userMessage: text)
-
-        fetchAIResponse(prompt: prompt, expectsQuiz: false)
-    }
 
     func sendUserQuestion(_ text: String) {
         // ① ユーザーメッセージをまず追加
@@ -39,11 +31,8 @@ class ChatViewModel: ObservableObject {
                     if expectsQuiz {
                         // 問題として追加
                         self.messages.append(.init(
-                            text: quiz.question,
-                            sender: .ai,
-                            choices: quiz.choices,
-                            answerIndex: quiz.answerIndex,
-                            explanation: quiz.explanation
+                            text: quiz.explanation ?? "(内容なし)",
+                            sender: .ai
                         ))
 
                     } else {
@@ -119,9 +108,7 @@ class ChatViewModel: ObservableObject {
         let explanation = lastQuiz.explanation ?? ""
         let answerIndex = lastQuiz.answerIndex ?? -1
 
-        let userAnswer = messages.first(where: {
-            $0.sender == .user
-        })?.text ?? "未回答"
+        let userAnswer = messages.last(where: { $0.sender == .user })?.text ?? "未回答"
 
         return """
         【直近の問題】

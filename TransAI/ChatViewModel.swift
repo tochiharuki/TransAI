@@ -6,10 +6,6 @@ class ChatViewModel: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var inputText: String = ""
     @Published var usedQuestions: Set<String> = []
-    
-    var avoidList: String {
-        usedQuestions.joined(separator: "\n")
-    }
 
     let api = APIService.shared
 
@@ -24,14 +20,7 @@ class ChatViewModel: ObservableObject {
 
     // 次の問題を明示的に取得するとき
     func fetchQuiz() {
-        let avoidText = avoidList.isEmpty ? "なし" : avoidList
-
-        let payload: [String: Any] = [
-            "prompt": [
-                "numQuestions": 1,
-                "avoid": avoidText
-            ]
-        ]
+        let avoidList = usedQuestions.joined(separator: " , ")
     
         let prompt = """
 基本情報技術者試験の4択問題を1問作成してください。

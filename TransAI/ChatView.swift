@@ -31,13 +31,22 @@ struct ChatView: View {
                     }
 
                     .onAppear {
-                       viewModel.fetchAIResponse(
-                            prompt: """
-                            基本情報技術者試験の4択問題を1問作成してください。
-                            出力形式はJSONで question / choices / answerIndex / explanation を返してください。
-                            """,
-                            expectsQuiz: true     // ← 追加
-                        )
+                    viewModel.fetchAIResponse(
+                        prompt: """
+基本情報技術者試験の4択問題を1問作成してください。
+
+必ず次の形式のJSONで返してください：
+{
+  "title": "問題を短く表すタイトル（10〜30文字）",
+  "question": "問題文全文",
+  "choices": ["A", "B", "C", "D"],
+  "answerIndex": 数値,
+  "explanation": "解説文"
+}
+""",
+                        expectsQuiz: true
+                    )
+
 
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

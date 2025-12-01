@@ -6,6 +6,7 @@ class ChatViewModel: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var inputText: String = ""
     @Published var usedQuestions: Set<String> = []
+    @Published var hasLoaded = false
 
     let api = APIService.shared
 

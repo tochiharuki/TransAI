@@ -11,7 +11,7 @@ struct QuizResponse: Codable {
 
 class APIService {
     static let shared = APIService()
-    private let baseURL = "https://deepseek-api-server.onrender.com/ask"
+    private let baseURL = "https://harukitech.site/ask"
 
     // ---- quiz を取得する（QuizResponse を期待）
     func fetchQuiz(prompt: String, completion: @escaping (Result<QuizResponse, Error>) -> Void) {
